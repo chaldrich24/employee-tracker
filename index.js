@@ -94,7 +94,16 @@ function formHandler(choice) {
                 {
                     type: 'input',
                     name: 'roleTitle',
-                    message: 'What is the role title?'
+                    message: 'What is the role title?',
+                    validate: title => {
+                        if (title) {
+                            return true;
+                        }
+                        else {
+                            console.log('\n', 'Value cannot be blank!');
+                            return false;
+                        }
+                    }
                 },
                 {
                     type: 'input',
@@ -141,17 +150,30 @@ function formHandler(choice) {
                 {
                     type: 'input',
                     name: 'first_name',
-                    message: "Enter employee's first name:"
+                    message: "Enter employee's first name:",
+                    validate: name => {
+                        if (name) {
+                            return true;
+                        }
+                        else {
+                            console.log('\n', 'Value cannot be blank!');
+                            return false;
+                        }
+                    }
                 },
                 {
                     type: 'input',
                     name: 'last_name',
-                    message: "Enter employee's last name:"
-                },
-                {
-                    type: 'input',
-                    name: 'first_name',
-                    message: "Enter employee's first name:"
+                    message: "Enter employee's last name:",
+                    validate: name => {
+                        if (name) {
+                            return true;
+                        }
+                        else {
+                            console.log('\n', 'Value cannot be blank!');
+                            return false;
+                        }
+                    }
                 },
                 {
                     type: 'list',
@@ -202,6 +224,15 @@ function formHandler(choice) {
             .then(data => {
                 const [sql, params] = query.updateRole(data.employee, data.role, employees[0], roles[0]);
                 console.log(sql, params);
+                db.query(sql, params, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log('Updated!');
+                    }
+                });
+                prompt();
             });
         });
     }
