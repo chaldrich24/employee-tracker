@@ -62,6 +62,28 @@ class Query {
 
         return [sql, params];
     }
+
+    updateRole(employee, role, employeeData, rolesData) {
+        let empId = 0;
+        let roleId = 0;
+
+        for (i = 0; i < employeeData.length; i++) {
+            if (employeeData[i].full_name === employee) {
+                empId = employeeData[i].id;
+            }
+        }
+
+        for (i = 0; i < rolesData.length; i++) {
+            if (rolesData[i].title === role) {
+                roleId = rolesData[i].id;
+            }
+        }
+        
+        const sql = 'UPDATE employees SET role_id = ? WHERE id = ?';
+        const params = [roleId, empId];
+
+        return [sql, params];
+    }
 };
 
 module.exports = Query;

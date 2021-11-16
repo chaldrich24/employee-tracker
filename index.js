@@ -180,6 +180,31 @@ function formHandler(choice) {
             });
         });
     }
+
+    if (choice === "Update an Employee's Role") {
+        const a = getRoleNames();
+        const b = getEmployeeNames();
+        Promise.all([a, b]).then(([roles, employees]) => {
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: 'Select an employee to update:',
+                    choices: employees[1]
+                },
+                {
+                    type: 'list',
+                    name: 'role',
+                    message: 'Select the role you wish to change to:',
+                    choices: roles[1]
+                }
+            ])
+            .then(data => {
+                const [sql, params] = query.updateRole(data.employee, data.role, employees[0], roles[0]);
+                console.log(sql, params);
+            });
+        });
+    }
 };
 
 function getDepartmentNames() {
