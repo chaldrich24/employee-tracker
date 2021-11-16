@@ -166,7 +166,18 @@ function formHandler(choice) {
                     choices: employees[1]
                 }
             ])
-            .then(data => console.log(data));
+            .then(data => {
+                const [sql, params] = query.addEmployee(data.first_name, data.last_name, data.role, data.manager, roles[0], employees[0]);
+                db.query(sql, params, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log('Employee Added!');
+                    }
+                });
+                prompt();
+            });
         });
     }
 };

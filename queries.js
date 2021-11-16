@@ -26,12 +26,12 @@ class Query {
         return [sql, params];
     }
 
-    addRole(title, salary, department, deptRows) {
+    addRole(title, salary, department, departmentData) {
         let id = 0;
 
-        for (i = 0; i < deptRows.length; i++) {
-            if (deptRows[i].name === department) {
-                id = deptRows[i].id;
+        for (i = 0; i < departmentData.length; i++) {
+            if (departmentData[i].name === department) {
+                id = departmentData[i].id;
             }
         }
 
@@ -39,6 +39,28 @@ class Query {
         const params = [title, salary, id];
 
         return [sql,params];
+    }
+
+    addEmployee(first_name, last_name, role, manager, rolesData, managerData) {
+        let rolesId = 0;
+        let managerId = 0;
+
+        for (i = 0; i < rolesData.length; i++) {
+            if (rolesData[i].title === role) {
+                rolesId = rolesData[i].id;
+            }
+        }
+
+        for (i = 0; i < managerData.length; i++) {
+            if (managerData[i].full_name === manager) {
+                managerId = managerData[i].id;
+            }
+        }
+
+        const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
+        const params = [first_name, last_name, rolesId, managerId];
+
+        return [sql, params];
     }
 };
 
