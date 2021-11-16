@@ -118,17 +118,17 @@ function formHandler(choice) {
                 }
             ])
             .then(data => {
-                const params = query.addRole(data.roleTitle, data.roleSalary, data.roleDept, array[0]);
-                console.log(data.roleTitle);
-                // db.query(sql, params, (err) => {
-                //     if (err) {
-                //         console.log(err);
-                //     }
-                //     else {
-                //         console.log('Role Added!');
-                //     }
-                // });
-                // prompt();
+                const [sql, params] = query.addRole(data.roleTitle, data.roleSalary, data.roleDept, array[0]);
+
+                db.query(sql, params, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log('Role Added!');
+                    }
+                });
+                prompt();
             })
         });
     }

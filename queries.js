@@ -32,15 +32,13 @@ class Query {
         for (i = 0; i < deptRows.length; i++) {
             if (deptRows[i].name === department) {
                 id = deptRows[i].id;
-                return;
             }
-            console.log(id);
         }
 
         const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`;
         const params = [title, salary, id];
 
-        return title;
+        return [sql,params];
     }
 };
 
