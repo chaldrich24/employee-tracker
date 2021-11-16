@@ -69,7 +69,7 @@ function formHandler(choice) {
                         return true;
                     }
                     else {
-                        console.log('Value cannot be blank!');
+                        console.log('\n', 'Value cannot be blank!');
                         return false;
                     }
                 }
@@ -132,6 +132,43 @@ function formHandler(choice) {
             })
         });
     }
+
+    if (choice === 'Add an Employee') {
+        const a = getRoleNames();
+        const b = getEmployeeNames();
+        Promise.all([a, b]).then(([roles, employees]) => {
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'first_name',
+                    message: "Enter employee's first name:"
+                },
+                {
+                    type: 'input',
+                    name: 'last_name',
+                    message: "Enter employee's last name:"
+                },
+                {
+                    type: 'input',
+                    name: 'first_name',
+                    message: "Enter employee's first name:"
+                },
+                {
+                    type: 'list',
+                    name: 'role',
+                    message: "Select employee's role:",
+                    choices: roles[1]
+                },
+                {
+                    type: 'list',
+                    name: 'manager',
+                    message: "Select employee's manager:",
+                    choices: employees[1]
+                }
+            ])
+            .then(data => console.log(data));
+        });
+    }
 };
 
 function getDepartmentNames() {
@@ -151,6 +188,38 @@ function getDepartmentNames() {
     });
 }
 
-// getDepartmentNames().then(data => console.log(data));
+function getRoleNames() {
+    return new Promise( (resolve, reject) => {
+        const sql = `SELECT * FROM roles`;
+        const titles = [];
+
+        db.query(sql, (err, rows) => {
+            if (err) {
+                return reject(err);
+            }
+            for (i = 0; i < rows.length; i++) {
+                titles.push(rows[i].title);
+            }
+            resolve([rows, titles]);
+        });
+    });
+}
+
+function getEmployeeNames() {
+    return new Promise( (resolve, reject) => {
+        const sql = `SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees`;
+        const names = [];
+
+        db.query(sql, (err, rows) => {
+            if (err) {
+                return reject(err);
+            }
+            for (i = 0; i < rows.length; i++) {
+                names.push(rows[i].full_name);
+            }
+            resolve([rows, names]);
+        });
+    });
+}
 
 prompt();
