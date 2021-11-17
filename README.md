@@ -15,7 +15,7 @@ To install, clone the GitHub repository and use 'npm install' command in command
 Use 'npm start' or 'node index.js' commands to start the application then follow the prompt.
 
 ## Questions
-If you have any questions, contact me at . To see other projects I've done, view my GitHub page here: https://github.com/chaldrich24.
+If you have any questions or to see other projects I've done, view my GitHub page here: https://github.com/chaldrich24.
 
-## License
-There is no license for this project.
+## Link
+Link to video walkthrough of application: https://watch.screencastify.com/v/PkKf61ySVSmAKqWXAe5N
