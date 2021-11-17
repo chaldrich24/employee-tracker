@@ -223,7 +223,6 @@ function formHandler(choice) {
             ])
             .then(data => {
                 const [sql, params] = query.updateRole(data.employee, data.role, employees[0], roles[0]);
-                console.log(sql, params);
                 db.query(sql, params, (err) => {
                     if (err) {
                         console.log(err);
